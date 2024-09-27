@@ -5,9 +5,9 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 
-import { logger } from "./src/Middlewares";
-import { limiter, defaultErrorHandler, notFoundHandler } from "@/lib";
-import { port } from "@/config";
+import { logger } from "./Middlewares";
+import { limiter, defaultErrorHandler, notFoundHandler } from "./lib";
+import { port } from "./config";
 
 const app = express();
 

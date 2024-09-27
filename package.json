@@ -1,15 +1,17 @@
 {
   "name": "talent-trove-server",
-  "module": "index.ts",
+  "module": "src/app.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --hot run index.ts",
-    "build": "bun build index.ts --outdir dist",
+    "dev": "bun --hot run src/app.ts",
+    "build": "bun build src/app.ts --outdir dist",
     "start": "bun run dist/index.js",
-    "lint": "eslint \"src/**/*.ts\" index.ts",
-    "lint:fix": "eslint \"src/**/*.ts\" index.ts --fix",
-    "format": "prettier --write \"src/**/*.{js,ts,json,md}\" index.ts",
-    "format:check": "prettier --check \"src/**/*.{js,ts,json,md}\" index.ts"
+    "lint": "eslint \"src/**/*.ts\" --no-ignore",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix --no-ignore",
+    "format": "prettier --write \"src/**/*.{js,ts,json,md}\" ",
+    "format:check": "prettier --check \"src/**/*.{js,ts,json,md}\" ",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -27,6 +29,7 @@
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "lint-staged": "^15.2.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
@@ -39,6 +42,7 @@
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
     "prettier": "^3.3.3",
     "tsconfig-paths": "^4.2.0"
   },

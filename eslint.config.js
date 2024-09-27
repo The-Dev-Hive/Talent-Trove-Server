@@ -1,5 +1,8 @@
-module.exports = {
-  root: true,
+import { createFlatConfig } from 'eslint';
+
+export default createFlatConfig({
+  
+  files: ["src/**/*.ts"],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "prettier"],
   extends: [
@@ -38,4 +41,11 @@ module.exports = {
     "node/prefer-promises/dns": "error",
     "node/prefer-promises/fs": "error",
   },
-};
+  ignores: [
+    "node_modules",
+    "dist",
+    "build",
+    "pnpm-lock.yaml",
+    "bun.lockb",
+  ],
+});
