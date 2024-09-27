@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot run index.ts",
+    "build": "bun build index.ts --outdir dist",
+    "start": "bun run dist/index.js",
     "lint": "eslint \"src/**/*.ts\" index.ts",
     "lint:fix": "eslint \"src/**/*.ts\" index.ts --fix",
     "format": "prettier --write \"src/**/*.{js,ts,json,md}\" index.ts",
@@ -20,6 +22,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "eslint-plugin-node": "^11.1.0",
     "express": "^4.21.0",
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
@@ -36,6 +39,15 @@
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "bun-create": {
+    "presets": [
+      "typescript"
+    ]
+  },
+  "imports": {
+    "@/*": "./src/*"
   }
 }

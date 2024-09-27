@@ -6,8 +6,8 @@ import helmet from "helmet";
 import compression from "compression";
 
 import { logger } from "./src/Middlewares";
-import { limiter, defaultErrorHandler, notFoundHandler } from "./src/lib";
-import { port } from "./src/config";
+import { limiter, defaultErrorHandler, notFoundHandler } from "@/lib";
+import { port } from "@/config";
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(logger());
 app.use(limiter);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript Express!");
+  res.send(`Hello, TypeScript Express!  ${port} `);
 });
 
 app.use(notFoundHandler);
