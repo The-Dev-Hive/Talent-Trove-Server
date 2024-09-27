@@ -5,6 +5,7 @@ export const defaultErrorHandler = (
   err: Error,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ) => {
   console.error(err.stack);

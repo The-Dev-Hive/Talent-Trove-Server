@@ -7,7 +7,7 @@ export const prettyJsonMiddleware = (
 ) => {
   const originalJson = res.json;
 
-  res.json = function (data: any) {
+  res.json = function (data: unknown) {
     if (req.query.pretty !== undefined) {
       return originalJson.call(this, JSON.stringify(data, null, 2));
     }

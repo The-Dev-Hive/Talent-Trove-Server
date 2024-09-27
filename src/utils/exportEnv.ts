@@ -1,1 +1,1 @@
-const dbUrl = '';
+export const dbUrl = '';
