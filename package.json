@@ -2,16 +2,15 @@
   "name": "talent-trove-server",
   "module": "index.ts",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/compression": "^1.7.5",
-    "@types/cors": "^2.8.17"
+  "scripts": {
+    "dev": "bun --hot run index.ts",
+    "lint": "eslint \"src/**/*.ts\" index.ts",
+    "lint:fix": "eslint \"src/**/*.ts\" index.ts --fix",
+    "format": "prettier --write \"src/**/*.{js,ts,json,md}\" index.ts",
+    "format:check": "prettier --check \"src/**/*.{js,ts,json,md}\" index.ts"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "scripts": {
-    "dev": "bun --hot run index.ts"
   },
   "dependencies": {
     "@types/express": "^5.0.0",
@@ -25,5 +24,16 @@
     "jsonwebtoken": "^9.0.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3"
   }
 }
