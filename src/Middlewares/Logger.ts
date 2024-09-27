@@ -16,7 +16,7 @@ const getStatusColor = (statusCode: number): string => {
 
 const resetColor = "\x1b[0m";
 
-export const loggerMiddleware = (printFunc: PrintFunc = defaultPrint) => {
+export const logger = (printFunc: PrintFunc = defaultPrint) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const startTime = process.hrtime();
     const { method, path } = req;
@@ -33,7 +33,7 @@ export const loggerMiddleware = (printFunc: PrintFunc = defaultPrint) => {
           : `${(elapsedMillis / 1000).toFixed(2)} s`;
 
       printFunc(
-        `${statusCodeColor}Outgoing Response: ${method} ${path} - Status: ${res.statusCode} - Elapsed Time: ${elapsedTimeString}${resetColor}`
+        `${statusCodeColor}Outgoing Response: ${method} ${path} - Status: ${res.statusCode} - Elapsed Time: ${elapsedTimeString}${resetColor}`,
       );
     });
 
