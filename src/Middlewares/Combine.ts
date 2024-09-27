@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from 'express';
 
 type Middleware = (req: Request, res: Response, next: NextFunction) => void;
 
@@ -49,7 +49,7 @@ export const except = (
 ) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const shouldRun =
-      typeof condition === "function"
+      typeof condition === 'function'
         ? !condition(req)
         : !req.path.startsWith(condition as string);
 

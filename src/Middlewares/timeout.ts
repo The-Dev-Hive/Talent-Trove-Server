@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from 'express';
 
 interface TimeoutMiddlewareOptions {
   timeout: number; // Timeout duration in milliseconds
@@ -6,7 +6,7 @@ interface TimeoutMiddlewareOptions {
 }
 
 export const timeoutMiddleware = (options: TimeoutMiddlewareOptions) => {
-  const { timeout, errorMessage = "Request timed out" } = options;
+  const { timeout, errorMessage = 'Request timed out' } = options;
 
   return (req: Request, res: Response, next: NextFunction) => {
     // Set a timeout on the response
@@ -18,7 +18,7 @@ export const timeoutMiddleware = (options: TimeoutMiddlewareOptions) => {
     }, timeout);
 
     // Clear the timeout if the response is sent before the timeout duration
-    res.on("finish", () => {
+    res.on('finish', () => {
       clearTimeout(timeoutId);
     });
 

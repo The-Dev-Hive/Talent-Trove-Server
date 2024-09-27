@@ -1,1 +1,1 @@
-const dbUrl = "";
+const dbUrl = '';

@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from 'express';
 
 // Not Found Handler
 export const notFoundHandler = (
@@ -7,6 +7,6 @@ export const notFoundHandler = (
   next: NextFunction,
 ) => {
   res.status(404).json({
-    message: "Resource not found",
+    message: 'Resource not found',
   });
 };

@@ -1,8 +1,8 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from 'express';
 
 export const bodyLimit = (maxLength: number) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const contentLength = req.headers["content-length"];
+    const contentLength = req.headers['content-length'];
 
     if (contentLength) {
       const length = parseInt(contentLength, 10);
@@ -14,7 +14,7 @@ export const bodyLimit = (maxLength: number) => {
     } else {
       let totalBytes = 0;
 
-      req.on("data", (chunk) => {
+      req.on('data', (chunk) => {
         totalBytes += chunk.length;
         if (totalBytes > maxLength) {
           req.destroy();
@@ -24,7 +24,7 @@ export const bodyLimit = (maxLength: number) => {
         }
       });
 
-      req.on("end", () => {
+      req.on('end', () => {
         next();
       });
     }

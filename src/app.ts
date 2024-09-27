@@ -1,13 +1,13 @@
-import express from "express";
-import type { Request, Response } from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import helmet from "helmet";
-import compression from "compression";
+import express from 'express';
+import type { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 
-import { logger } from "./Middlewares";
-import { limiter, defaultErrorHandler, notFoundHandler } from "./lib";
-import { port } from "./config";
+import { logger } from './Middlewares';
+import { limiter, defaultErrorHandler, notFoundHandler } from './lib';
+import { port } from './config';
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(compression());
 app.use(logger());
 app.use(limiter);
 
-app.get("/", (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.send(`Hello, TypeScript Express!  ${port} `);
 });
 
