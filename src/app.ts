@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import express from 'express';
 import type { Request, Response } from 'express';
 import bodyParser from 'body-parser';
@@ -6,7 +8,7 @@ import compression from 'compression';
 
 import { logger } from './Middlewares';
 import { defaultErrorHandler, notFoundHandler } from './lib';
-import { port } from './config';
+import { port } from '@/config';
 import { expressMiddleware } from '@apollo/server/express4';
 import createApolloGraphqlServer from './graphql';
 
@@ -36,3 +38,14 @@ const init = async () => {
   });
 };
 init();
+
+/*
+
+  "baseUrl": ".",
+        "paths": {
+            "@src/*": [
+                "src/*"
+            ]
+        },
+ 
+ */

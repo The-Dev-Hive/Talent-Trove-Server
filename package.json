@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot run src/app.ts",
-    "build": "rimraf dist && swc src -d dist",
-    "start": "bun run dist/index.js",
+    "build": "rimraf dist && swc src -d dist --source-maps",
+    "start": "node  dist/src/app.js",
     "lint": "eslint \"src/**/*.ts\" --no-ignore",
     "lint:fix": "eslint \"src/**/*.ts\" --fix --no-ignore",
     "format": "prettier --write \"src/**/*.{js,ts,json,md}\" ",
@@ -32,6 +32,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "lint-staged": "^15.2.10",
+    "module-alias": "^2.2.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
@@ -62,5 +63,8 @@
   },
   "imports": {
     "@/*": "./src/*"
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }
