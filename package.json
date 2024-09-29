@@ -1,7 +1,7 @@
 {
   "name": "talent-trove-server",
   "module": "src/app.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "bun --hot run src/app.ts",
     "build": "rimraf dist && swc src -d dist --source-maps",

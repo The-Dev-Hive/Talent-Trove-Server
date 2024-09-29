@@ -10,7 +10,7 @@ import { logger } from './Middlewares';
 import { defaultErrorHandler, notFoundHandler } from './lib';
 import { port } from '@/config';
 import { expressMiddleware } from '@apollo/server/express4';
-import createApolloGraphqlServer from './graphql';
+import { createApolloGraphqlServer } from './graphql';
 
 const init = async () => {
   const app = express();

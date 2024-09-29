@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 
-async function createApolloGraphqlServer() {
+export async function createApolloGraphqlServer() {
   const gqlServer = new ApolloServer({
     typeDefs: `
             type Query {
@@ -17,5 +17,3 @@ async function createApolloGraphqlServer() {
   await gqlServer.start();
   return gqlServer;
 }
-
-export default createApolloGraphqlServer;
