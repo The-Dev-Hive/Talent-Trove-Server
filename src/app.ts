@@ -5,6 +5,7 @@ import type { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import compression from 'compression';
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
 
 import { logger } from './Middlewares';
 import { defaultErrorHandler, notFoundHandler } from './lib';
@@ -24,9 +25,10 @@ const init = async () => {
   // app.use(limiter);
 
   app.get('/', (req: Request, res: Response) => {
-    res.send(`Hello, TypeScript Express!  ${port} `);
+    res.json({ route: { voyager: '/voyager', graphql: '/graphql' } });
   });
 
+  app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }));
   app.use('/graphql', expressMiddleware(await createApolloGraphqlServer()));
 
   app.use(notFoundHandler);
@@ -35,17 +37,7 @@ const init = async () => {
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
     console.log(`GraphQL Server running at http://localhost:${port}/graphql`);
+    console.log(`Voyager Graph Doc  at http://localhost:${port}/voyager`);
   });
 };
 init();
-
-/*
-
-  "baseUrl": ".",
-        "paths": {
-            "@src/*": [
-                "src/*"
-            ]
-        },
- 
- */

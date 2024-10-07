@@ -1,16 +1,17 @@
 import { ApolloServer } from '@apollo/server';
+import { user_resolvers } from './resolvers';
+import { readFile } from 'node:fs/promises';
 
 export async function createApolloGraphqlServer() {
+  const def = await readFile(`${__dirname}/schema.graphql`, 'utf-8');
   const gqlServer = new ApolloServer({
-    typeDefs: `
-            type Query {
-               hello: String
-            }
-        `,
+    typeDefs: def,
     resolvers: {
       Query: {
-        hello: () => 'Hello, GraphQL world!',
+        ...user_resolvers.query,
       },
+
+      // Mutation: {...user_resolvers.mutation,},
     },
   });
 
