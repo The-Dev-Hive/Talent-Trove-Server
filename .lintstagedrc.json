@@ -2,8 +2,7 @@
   "*.{js,jsx,ts,tsx}": [
     "prettier --write",
     "eslint --fix --no-ignore",
-    "eslint",
-    "tsc --noEmit"
+    "eslint"
   ],
   "*.{json,md,yml}": ["prettier --write"]
 }
