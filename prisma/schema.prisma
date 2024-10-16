@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  role        String
+  createdDate DateTime @default(now()) @map("created_date")
+
+  @@map("users")
+}
+
+model JobSeekerProfile {
+  userId           Int     @id @unique @map("user_id")
+  firstName        String  @map("first_name")
+  lastName         String  @map("last_name")
+  educationDetail  Int?    @map("education_detail")
+  experienceDetail Int?    @map("experience_detail")
+  skills           Skill[] @relation("Skill")
+
+  @@map("job_seeker_profiles")
+}
+
+model EmployerProfile {
+  userId  Int @id @unique @map("user_id")
+  company Int
+
+  @@map("employer_profiles")
+}
+
+model CompanyProfile {
+  id                 Int      @id @default(autoincrement())
+  name               String
+  description        String
+  establishment_date DateTime
+  websiteUrl         String   @map("website_url")
+  image              String
+  createdBy          String   @map("created_by")
+
+  @@map("company_profile")
+}
+
+model Address {
+  id      Int     @id @default(autoincrement())
+  street  String?
+  city    String
+  state   String
+  zipCode String  @map("zip_code")
+  country String
+
+  @@map("addresses")
+}
+
+model Skill {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  JobSeekerProfile JobSeekerProfile[] @relation("Skill")
+
+  @@map("skills")
+}
