@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "bun --hot run src/app.ts",
     "build": "rimraf dist && swc src -d dist --source-maps",
-    "start": "node  dist/src/app.js",
+    "start": "cross-env NODE_ENV=production  node  dist/src/app.js",
     "lint": "eslint \"src/**/*.ts\" --no-ignore",
     "lint:fix": "eslint \"src/**/*.ts\" --fix --no-ignore",
     "format": "prettier --write \"src/**/*.{js,ts,json,md}\" ",
     "format:check": "prettier --check \"src/**/*.{js,ts,json,md}\" ",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -26,16 +27,17 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "eslint-plugin-node": "^11.1.0",
-    "express": "^4.21.0",
+    "express": ">=5.0.0",
     "express-rate-limit": "^7.4.0",
     "graphql": "^16.9.0",
+    "graphql-voyager": "^2.1.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "lint-staged": "^15.2.10",
     "module-alias": "^2.2.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
@@ -52,6 +54,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
     "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prisma": "^5.21.0",
     "rimraf": "^6.0.1",
