@@ -181,3 +181,6 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 npm-shrinkwrap.json
+
+drizzle
+drizzle/*
