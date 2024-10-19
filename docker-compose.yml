@@ -1,15 +1,15 @@
 services:
   app:
-    image: ims-nest-api-starter
-    container_name: ims-nest-api-starter
+    image: talent-trove-server
+    container_name: talent-trove-server
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - '8000:8000'
     volumes:
-      - .:/var/www/ims-nest-api-starter
-      - node_modules:/var/www/ims-nest-api-starter/node_modules
+      - .:/var/www/talent-trove-server
+      - node_modules:/var/www/talent-trove-server/node_modules
     depends_on:
       - db
     environment:
