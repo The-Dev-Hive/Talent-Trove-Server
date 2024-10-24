@@ -1,32 +1,25 @@
-# Use the official Node.js image.
-FROM node:18
+# Dockerfile
 
-# Set the working directory.
-WORKDIR /var/www/talent-trove-server
+# Use an official Node.js runtime as a parent image
+FROM node:20-alpine
 
-# Install wait-for-it
-ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod +x /usr/local/bin/wait-for-it
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
-# Install bun
-# RUN curl https://bun.sh/install | bash
-#ENV PATH="/root/.bun/bin:$PATH"
+# Copy the package.json and package-lock.json files
+COPY package*.json ./
 
-# Copy package.json and package-lock.json to the working directory.
-COPY package.json bun.lockb ./
+# Install the project dependencies
+RUN npm install
 
-# Copy all project files to the working directory, excluding those in .dockerignore.
+# Copy the rest of the project files
 COPY . .
 
-# Copy the Docker-specific environment file.
-COPY .env.docker .env
+# Build the TypeScript code
+RUN npm run build
 
-# Install app dependencies using Bun and clean cache.
-#RUN rm -rf node_modules && npm install --force  
-RUN npm install 
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Expose the application port.
-EXPOSE 2000
-
-# Set the entrypoint command to wait for the database and then start the application
-CMD ["wait-for-it", "db:5432", "--", "npm", "run", "start:dev", "--preserveWatchOutput"]
+# Start the app
+CMD ["npm", "start"]

@@ -105,7 +105,6 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
-.env.docker
 
 # parcel-bundler cache (https://parceljs.org/)
 
@@ -164,6 +163,7 @@ dist
 # yarn v2
 
 .yarn/cache
+yarn.lock/*
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
@@ -176,11 +176,8 @@ dist
 .DS_Store
 
 
-bun.lockb
-package-lock.json
+# lock files 
 yarn.lock
+package-lock.json
 pnpm-lock.yaml
-npm-shrinkwrap.json
-
-drizzle
-drizzle/*
+bun.lockb

@@ -1,7 +1,7 @@
 {
   "*.{js,jsx,ts,tsx}": [
-    "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "prettier --write 'src/**/*.{ts,js,json,md}'",
+    "eslint 'src/**/*.{ts,js}"
   ],
   "*.{json,md,yml}": ["prettier --write"]
 }
