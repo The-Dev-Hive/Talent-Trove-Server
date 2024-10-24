@@ -15,7 +15,8 @@
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
     "prepare": "husky",
-    "lint-staged": "lint-staged --concurrent false"
+    "lint-staged": "lint-staged --concurrent false",
+    "script": "tsx  ./script/tts.ts"
   },
   "dependencies": {
     "compression": "^1.7.4",
