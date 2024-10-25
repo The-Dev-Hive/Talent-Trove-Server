@@ -1,50 +1,42 @@
-import fs from "fs";
-import path from "path";
-import readline from "readline";
+import fs from "fs/promises";
+import readline from "readline/promises";
+import { fileList } from "./filelist";
 
-// Create interface for user input
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+async function createFolderAndFiles(folderName: string) {
+  const folderPath = `${process.cwd()}/src/api/${folderName}`;
 
-// Prompt the user for folder name
-rl.question("Enter folder name: ", (folderName) => {
-  const folderPath = process.cwd() + `/src/api/${folderName}`;
-
-  // Check if the folder already exists
-  if (fs.existsSync(folderPath)) {
+  try {
+    await fs.access(folderPath);
     console.error(`Error: Folder "${folderName}" already exists.`);
-    rl.close();
     return;
+  } catch (err) {
+    await fs.mkdir(folderPath, { recursive: true });
   }
 
-  // Create the folder
-  fs.mkdir(folderPath, { recursive: true }, (err) => {
-    if (err) {
-      console.error(`Error creating folder: ${err.message}`);
-      rl.close();
-      return;
-    }
+  const files = fileList(folderName);
 
-    const files = [
-      `${folderName}.route.ts`,
-      `${folderName}.validation.ts`,
-      `${folderName}.service.ts`,
-      `${folderName}.controller.ts`,
-    ];
+  await Promise.all(
+    files.map(async (file) => {
+      const filePath = `${folderPath}/${file.name}`;
+      try {
+        await fs.writeFile(filePath, file.content);
+      } catch (err) {
+        console.error(`Error creating file ${file}: ${err.message}`);
+      }
+    }),
+  );
 
-    files.forEach((file) => {
-      const filePath = path.join(folderPath, file);
-      fs.writeFile(filePath, "", (err) => {
-        if (err) {
-          console.error(`Error creating file ${file}: ${err.message}`);
-        }
-      });
-    });
+  console.log("Congratulations! Folder and files created successfully.");
+}
 
-    console.log("Congregations! Folder and files created successfully.");
-
-    rl.close();
+(async () => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
   });
-});
+
+  const folderName = await rl.question("Enter folder name: ");
+  await createFolderAndFiles(folderName);
+
+  rl.close();
+})();
