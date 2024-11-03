@@ -1,9 +1,15 @@
 import { RequestHandler } from "express";
+import formatedResponse from "../../utils/formatedResponse";
+import handleAsync from "../../utils/handleAsync";
 
-const registerUserIntoDB: RequestHandler = async (req, res, next) => {
+const registerUserIntoDB: RequestHandler = handleAsync(async (req, res) => {
   const userData = req.body;
-  res.status(201).json({ success: true, data: userData });
-};
+  formatedResponse(res, {
+    statusCode: 201,
+    data: userData,
+    message: "User registerd successfully!",
+  });
+});
 
 export const AuthController = {
   registerUserIntoDB,

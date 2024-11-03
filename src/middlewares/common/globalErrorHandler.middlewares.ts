@@ -7,5 +7,10 @@ export const globalErrorHandler = (
   next: NextFunction,
 ) => {
   console.error(err.stack);
-  res.status(500).send({ message: "Internal Server Error" });
+  res.status(500).send({
+    status: "error",
+    message: err?.message || "Internal Server Error!",
+    data: null,
+    errors: err,
+  });
 };

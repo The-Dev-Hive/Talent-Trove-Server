@@ -1,5 +1,7 @@
 import { Router } from "express";
+import zodValidator from "../../middlewares/common/zodValidation";
 import { AuthController } from "./auth.controller";
+import { authValidationSchema } from "./auth.validation";
 
 export const router = Router();
 
@@ -34,6 +36,10 @@ export const router = Router();
  *         description: Invalid credentials
  */
 
-router.post("/register", AuthController.registerUserIntoDB);
+router.post(
+  "/register",
+  zodValidator(authValidationSchema.registerBodySchema),
+  AuthController.registerUserIntoDB,
+);
 
 export { router as authRouter };
