@@ -6,12 +6,15 @@ import express from "express";
 import type { Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
+import { authRouter } from "./api/auth/auth.route";
 import { winstonLogger } from "./config";
 import { PORT } from "./config/envs";
 import {
   globalErrorHandler,
   globalNotFoundHandler,
 } from "./middlewares/common";
+import swaggerDocs from "./swagger";
 
 export const app = express();
 
@@ -24,6 +27,11 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan("dev"));
 
+// Serve Swagger documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// app routes
+app.use("/api/v1/auth", authRouter);
 app.get("/", (req: Request, res: Response) => {
   winstonLogger.info("Log: ");
   res.status(200).json({ data: "Hello, world!" });
