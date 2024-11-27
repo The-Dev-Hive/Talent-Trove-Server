@@ -6,7 +6,7 @@ const zodValidator = (schema: AnyZodObject) => {
   return handleAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       await schema.parseAsync({
-        body: req.body,
+        ...req.body,
       });
       next();
     },

@@ -1,21 +1,11 @@
-import { address } from "./address";
-// import { seekerSkill} from './seekerSkill';
+// export { address } from "./address";
+// // export { seekerSkill} from './seekerSkill';
 
-import { companies } from "./company";
-import { education } from "./education";
-import { employeeProfile } from "./employeeProfile";
-import { experience } from "./experience";
-import { jobSeekerProfile } from "./jobSeekerProfile";
-import { skill } from "./skill";
-import { user } from "./user";
+// export { companies } from "./company";
+// export { education } from "./education";
+// export { employeeProfile } from "./employeeProfile";
+// export { experience } from "./experience";
+// export { jobSeekerProfile } from "./jobSeekerProfile";
+// export { skill } from "./skill";
 
-export default {
-  user,
-  employeeProfile,
-  jobSeekerProfile,
-  address,
-  experience,
-  education,
-  skill,
-  companies,
-};
+export { users } from "./user";

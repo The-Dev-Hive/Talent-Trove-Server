@@ -1,15 +1,13 @@
 import { z } from "zod";
 
 const registerBodySchema = z.object({
-  body: z.object({
-    email: z.string().email(),
-    fullName: z.string(),
-    bio: z.string(),
-    password: z.string(),
-    role: z.string(),
-    status: z.string(),
-  }),
+  email: z.string().email(),
+  fullName: z.string(),
+  bio: z.string(),
+  password: z.string(),
+  profilePictureUrl: z.string().optional(),
 });
+export type TRegisterBodySchema = z.infer<typeof registerBodySchema>;
 
 export const authValidationSchema = {
   registerBodySchema,
