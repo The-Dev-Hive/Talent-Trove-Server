@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AnyZodObject } from "zod";
-import handleAsync from "../../utils/handleAsync";
+import { handleAsync } from "../../utils";
 
 const zodValidator = (schema: AnyZodObject) => {
   return handleAsync(
