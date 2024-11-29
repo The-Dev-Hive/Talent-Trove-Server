@@ -6,8 +6,10 @@ import { users } from "../../database/schema";
 import {
   compareHashPassword,
   createToken,
+  CustomError,
   handleAsync,
   hashPassword,
+  HttpStatus,
 } from "../../utils";
 import formatedResponse from "../../utils/formatedResponse";
 import { TLoginBody, TRegisterBodySchema } from "./auth.validation";
@@ -25,15 +27,15 @@ const registerUserIntoDB: RequestHandler = handleAsync(async (req, res) => {
   const result: any = await db.insert(users).values({
     fullName,
     bio,
-    email,
+    email: email.toLowerCase(),
     password: hashedPassword,
     profilePictureUrl,
   });
 
   // sending response with utils function name of 'formattedResponse()'
   formatedResponse(res, {
-    statusCode: 201,
-    data: result,
+    statusCode: HttpStatus.CREATED,
+    data: { id: result.insertedId, email },
     message: "user registerd!",
   });
 });
@@ -43,17 +45,21 @@ const loginUserFromDB: RequestHandler = handleAsync(async (req, res) => {
 
   // matching email and password into db
   const user = await db.query.users.findFirst({
-    where: eq(users.email, email),
+    where: eq(users.email, email.toLowerCase()),
   });
 
   if (!user) {
-    throw new Error("user not found");
+    throw new CustomError(HttpStatus.NOT_FOUND, "user not found");
   }
   // check the password valid or not
   const comparePassword = await compareHashPassword(user.password, password);
-  console.log(comparePassword);
+
+  // if password not valid then will throw an error
   if (!comparePassword) {
-    throw new Error("user email and password not matching");
+    throw new CustomError(
+      HttpStatus.UNAUTHORIZED,
+      "user email and password not matching",
+    );
   }
 
   const jwtPayload = {
@@ -61,6 +67,7 @@ const loginUserFromDB: RequestHandler = handleAsync(async (req, res) => {
     role: user.role!,
   };
 
+  // generate access token for user
   const accesToken = createToken(
     jwtPayload,
     config.jwt_access_secret!,
@@ -72,8 +79,12 @@ const loginUserFromDB: RequestHandler = handleAsync(async (req, res) => {
 
   // sending response with utils function name of 'formattedResponse()'
   formatedResponse(res, {
-    statusCode: 201,
-    data: { token: accesToken, user: userWithoutPassword },
+    statusCode: HttpStatus.OK,
+    data: {
+      token: accesToken,
+      expiresIn: config.jwt_access_expires_in,
+      user: userWithoutPassword,
+    },
     message: "user logged in!",
   });
 });
