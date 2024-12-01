@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://special-space-potato-v4rggwqg7xr3pj4r-3000.app.github.dev/api/v1", // Change as needed
+        url: "https://special-umbrella-g9r55675p4rhw5xw-3000.app.github.dev/api/v1", // Change as needed
       },
     ],
   },

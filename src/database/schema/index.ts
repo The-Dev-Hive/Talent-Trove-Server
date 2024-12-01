@@ -8,4 +8,6 @@
 // export { jobSeekerProfile } from "./jobSeekerProfile";
 // export { skill } from "./skill";
 
-export { users } from "./user";
+export * from "./user";
+export * from "./jobSeekerProfile";
+export * from "./employeeProfile";

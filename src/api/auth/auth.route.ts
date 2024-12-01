@@ -5,39 +5,6 @@ import { authValidationSchema } from "./auth.validation";
 
 export const router = Router();
 
-// /**
-//  * @swagger
-//  * /api/v1/auth/register:
-//  *   post:
-//  *     summary: Register user
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               email:
-//  *                 type: string
-//  *               fullName:
-//  *                 type: string
-//  *               bio:
-//  *                 type: string
-//  *               password:
-//  *                 type: string
-//  *               role:
-//  *                 type: string
-//  *               status:
-//  *                 type: string
-//  *     responses:
-//  *       200:
-//  *         description: Registered successful
-//  *       400:
-//  *         description: Cannot registered
-//  */
-
-// faflaksdjflajkdsf
-
 /**
  * @swagger
  * tags:

@@ -8,6 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { authRouter } from "./api/auth/auth.route";
+import { userRouter } from "./api/profile/profile.route";
 import { winstonLogger } from "./config";
 import { PORT } from "./config/envs";
 import {
@@ -32,13 +33,14 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // app routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/profile", userRouter);
 app.get("/", (req: Request, res: Response) => {
   winstonLogger.info("Log: ");
   res.status(200).json({ data: "Hello, world!" });
 });
 
-app.use(globalErrorHandler);
 app.use(globalNotFoundHandler);
+app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
