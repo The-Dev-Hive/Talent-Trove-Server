@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   pgEnum,
   pgTable,
@@ -6,6 +7,8 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { employeeProfiles } from "./employeeProfile";
+import { jobSeekerProfiles } from "./jobSeekerProfile";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -19,3 +22,8 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+export const userRelations = relations(users, ({ one }) => ({
+  employeeProfile: one(employeeProfiles),
+  jobSeekerProfile: one(jobSeekerProfiles),
+}));

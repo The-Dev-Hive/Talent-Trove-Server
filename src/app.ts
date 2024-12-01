@@ -37,8 +37,8 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ data: "Hello, world!" });
 });
 
-app.use(globalNotFoundHandler);
 app.use(globalErrorHandler);
+app.use(globalNotFoundHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

@@ -1,19 +1,27 @@
-// import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
-// import { address } from "./address";
-// import { education } from "./education";
-// import { experience } from "./experience";
-// import { user } from "./user";
+import { relations } from "drizzle-orm";
+import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { users } from "./user";
 
-// export const jobSeekerProfile = pgTable("job_seaker_profiles", {
-//   id: serial("id").primaryKey(),
-//   userId: serial("user_id").references(() => user.id),
-//   resumeUrl: text("resume_url"),
-//   linkedinUrl: text("linkedin_url"),
-//   portfolioUrl: text("portfolio_url"),
-//   educationDetail: serial("education_detail").references(() => education.id),
-//   experienceDetail: serial("experience_detail").references(() => experience.id),
-//   address: serial("address").references(() => address.id),
-//   gender: text("gender"),
-//   createdAt: timestamp("created_at").defaultNow(),
-//   updatedAt: timestamp("updated_at").defaultNow(),
-// });
+export const jobSeekerProfiles = pgTable("job_seeker_profiles", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .unique()
+    .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
+  resumeUrl: text("resume_url"),
+  linkedinUrl: text("linkedin_url"),
+  portfolioUrl: text("portfolio_url"),
+  gender: text("gender"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const jobSeekerProfileRelations = relations(
+  jobSeekerProfiles,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [jobSeekerProfiles.userId],
+      references: [users.id],
+    }),
+  }),
+);
