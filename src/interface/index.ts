@@ -1,4 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
+import { TUserRole } from "../api/auth/auth.interface";
 
 declare global {
   namespace Express {
@@ -7,3 +8,8 @@ declare global {
     }
   }
 }
+
+export const AUTH_RULES = {
+  SEEKER: "job_seeker",
+  EMPLOYEER: "employer",
+} as const;

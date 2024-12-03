@@ -11,3 +11,7 @@
 export * from "./user";
 export * from "./jobSeekerProfile";
 export * from "./employeeProfile";
+export * from "./socialLink";
+export * from "./education";
+export * from "./experience";
+export * from "./address";

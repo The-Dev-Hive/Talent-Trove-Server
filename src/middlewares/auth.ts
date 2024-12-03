@@ -7,8 +7,12 @@ const auth = (...requiredRoles: TUserRole[]) => {
   return handleAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const token = req.headers.authorization;
+
       if (!token) {
-        throw new CustomError(HttpStatus.FORBIDDEN, "token not found");
+        throw new CustomError(
+          HttpStatus.FORBIDDEN,
+          "you are logged out, please login again",
+        );
       }
 
       try {
