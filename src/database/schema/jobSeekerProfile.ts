@@ -1,8 +1,8 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { address } from "./address";
-import { education } from "./education";
-import { experience } from "./experience";
+import { educations } from "./education";
+import { experiences } from "./experience";
 import { socialLinks } from "./socialLink";
 import { users } from "./user";
 
@@ -18,11 +18,11 @@ export const jobSeekerProfiles = pgTable("job_seeker_profiles", {
     onUpdate: "cascade",
   }),
   portfolioUrl: text("portfolio_url"),
-  experience: integer("experience").references(() => experience.id, {
+  experience: integer("experience").references(() => experiences.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  education: integer("education").references(() => education.id, {
+  education: integer("education").references(() => educations.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
