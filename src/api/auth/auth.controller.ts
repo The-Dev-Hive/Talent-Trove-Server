@@ -18,8 +18,7 @@ import { TLoginBody, TRegisterBodySchema } from "./auth.validation";
 // handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
 const registerUserIntoDB: RequestHandler = handleAsync(async (req, res) => {
   // collect request body object
-  const { email, fullName, bio, password, profilePictureUrl } =
-    req.body as TRegisterBodySchema;
+  const { email, fullName, bio, password, profilePictureUrl } = req.body.data;
 
   // convert plain text password to hash password
   const hashedPassword = await hashPassword(password as string);
@@ -41,7 +40,7 @@ const registerUserIntoDB: RequestHandler = handleAsync(async (req, res) => {
 });
 
 const loginUserFromDB: RequestHandler = handleAsync(async (req, res) => {
-  const { email, password } = req.body as TLoginBody;
+  const { email, password } = req.body.data;
 
   // matching email and password into db
   const user = await db.query.users.findFirst({

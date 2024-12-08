@@ -2,16 +2,20 @@ import { z } from "zod";
 
 // creating zod schema
 const registerBodySchema = z.object({
-  email: z.string().email(),
-  fullName: z.string(),
-  bio: z.string(),
-  password: z.string(),
-  profilePictureUrl: z.string().optional(),
+  data: z.object({
+    email: z.string().email(),
+    fullName: z.string(),
+    bio: z.string(),
+    password: z.string(),
+    profilePictureUrl: z.string().optional(),
+  }),
 });
 
 const loginBodySchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  data: z.object({
+    email: z.string().email(),
+    password: z.string(),
+  }),
 });
 
 // exporting typescript tyeps here

@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { AUTH_RULES } from "../../interface";
 import auth from "../../middlewares/auth";
+import zodValidator from "../../middlewares/common/zodValidation";
 import { ProfileController } from "./profile.controller";
+import { profleValidationSchema } from "./profile.validation";
 
 export const router = Router();
 
@@ -92,9 +94,14 @@ router.post(
 );
 router.post(
   "/me-seeker",
+  zodValidator(profleValidationSchema.createJobSeekerProfile),
   auth(AUTH_RULES.SEEKER),
   ProfileController.CREATE_JOB_SEEKER_PROFILE_BY_LOGGED_IN_USER,
 );
-router.get("/me", ProfileController.GET_EMPLOYEE_PROFILES);
+router.get(
+  "/me",
+  auth(AUTH_RULES.EMPLOYEER, AUTH_RULES.SEEKER),
+  ProfileController.GET_AUTHENTICATE_USER,
+);
 
 export { router as userRouter };
