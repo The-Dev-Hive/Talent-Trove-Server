@@ -12,7 +12,6 @@ import {
   HttpStatus,
 } from "../../utils";
 import formatedResponse from "../../utils/formatedResponse";
-import { TLoginBody, TRegisterBodySchema } from "./auth.validation";
 
 // controller function for creating user
 // handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
