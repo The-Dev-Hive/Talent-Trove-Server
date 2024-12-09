@@ -1,4 +1,3 @@
-import { eq } from "drizzle-orm";
 import { RequestHandler } from "express";
 import { db } from "../../database";
 import { employeeProfiles, jobSeekerProfiles } from "../../database/schema";
@@ -6,7 +5,9 @@ import { AUTH_RULES } from "../../interface";
 import { CustomError, handleAsync, HttpStatus } from "../../utils";
 import formatedResponse from "../../utils/formatedResponse";
 
-// handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
+// **handleAsync()** utils function. This funciton handles dynamicly try().catch() blocks
+
+// get all job seeker profiles from database
 const GET_JOB_SEEKER_PROFILES: RequestHandler = handleAsync(
   async (req, res) => {
     const result: any = await db.query.jobSeekerProfiles.findMany();
@@ -20,7 +21,7 @@ const GET_JOB_SEEKER_PROFILES: RequestHandler = handleAsync(
   },
 );
 
-// handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
+// Get all employee profiles from database
 const GET_EMPLOYEE_PROFILES: RequestHandler = handleAsync(async (req, res) => {
   const result: any = await db.query.employeeProfiles.findMany();
 
@@ -32,7 +33,7 @@ const GET_EMPLOYEE_PROFILES: RequestHandler = handleAsync(async (req, res) => {
   });
 });
 
-// retived loggedIn user profile
+// retived loggedIn user profile based on user role
 const GET_AUTHENTICATE_USER: RequestHandler = handleAsync(async (req, res) => {
   const { userId, role } = req.user;
 
@@ -106,7 +107,7 @@ const CREATE_EMPLOYEE_PROFILE_BY_LOGGED_IN_USER: RequestHandler = handleAsync(
     formatedResponse(res, {
       statusCode: HttpStatus.OK,
       data: "result",
-      message: "authenticate user details retrived!",
+      message: "created employee profile!",
     });
   },
 );

@@ -3,11 +3,13 @@ import { z } from "zod";
 // creating zod schema
 const createEmployeeProfile = z.object({
   data: z.object({
-    email: z.string().email(),
-    fullName: z.string(),
-    bio: z.string(),
-    password: z.string(),
-    profilePictureUrl: z.string().optional(),
+    position: z.string(),
+    company: z.string(),
+    address: z.string(),
+    experience: z.string(),
+    education: z.string(),
+    contact_number: z.string(),
+    socialLink: z.string(),
   }),
 });
 const createJobSeekerProfile = z.object({
@@ -23,4 +25,5 @@ const createJobSeekerProfile = z.object({
 // exporting..
 export const profleValidationSchema = {
   createJobSeekerProfile,
+  createEmployeeProfile,
 };

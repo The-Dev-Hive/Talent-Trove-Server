@@ -84,24 +84,35 @@ export const router = Router();
  *
  */
 
+// get all job seeker profiles from database
 router.get("/job-seekers", ProfileController.GET_JOB_SEEKER_PROFILES);
-
+// get all employee profile from database
 router.get("/employees", ProfileController.GET_EMPLOYEE_PROFILES);
+
+// BOTH ACCESSABLE ROUTES
+
+router.get(
+  "/me",
+  auth(AUTH_RULES.EMPLOYEER, AUTH_RULES.SEEKER),
+  ProfileController.GET_AUTHENTICATE_USER,
+); // retrived logged in user details based on role from auth token
+
+// EMPLOYEE ACCESSABLE ROUTES :-
+
 router.post(
   "/me-employee",
+  zodValidator(profleValidationSchema.createEmployeeProfile),
   auth(AUTH_RULES.EMPLOYEER),
   ProfileController.CREATE_EMPLOYEE_PROFILE_BY_LOGGED_IN_USER,
-);
+); // create Employee Profile based on loggin info
+
+// JOB_SEEKER ACCESSABLE ROUTES :-
+
 router.post(
   "/me-seeker",
   zodValidator(profleValidationSchema.createJobSeekerProfile),
   auth(AUTH_RULES.SEEKER),
   ProfileController.CREATE_JOB_SEEKER_PROFILE_BY_LOGGED_IN_USER,
-);
-router.get(
-  "/me",
-  auth(AUTH_RULES.EMPLOYEER, AUTH_RULES.SEEKER),
-  ProfileController.GET_AUTHENTICATE_USER,
-);
+); // create Job Seeker Profile based on loggin info
 
 export { router as userRouter };
