@@ -13,7 +13,7 @@ export const jobSeekerProfiles = pgTable("job_seeker_profiles", {
     .unique()
     .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
   resumeUrl: text("resume_url"),
-  socialLink: integer("socialLink").references(() => socialLinks.id, {
+  socialLink: integer("social_link").references(() => socialLinks.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),

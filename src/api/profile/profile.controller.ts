@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { RequestHandler } from "express";
 import { db } from "../../database";
-import { jobSeekerProfiles } from "../../database/schema";
+import { employeeProfiles, jobSeekerProfiles } from "../../database/schema";
 import { AUTH_RULES } from "../../interface";
 import { CustomError, handleAsync, HttpStatus } from "../../utils";
 import formatedResponse from "../../utils/formatedResponse";
@@ -31,7 +31,8 @@ const GET_EMPLOYEE_PROFILES: RequestHandler = handleAsync(async (req, res) => {
     message: "employee profiles retrieved!",
   });
 });
-// handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
+
+// retived loggedIn user profile
 const GET_AUTHENTICATE_USER: RequestHandler = handleAsync(async (req, res) => {
   const { userId, role } = req.user;
 
@@ -45,12 +46,12 @@ const GET_AUTHENTICATE_USER: RequestHandler = handleAsync(async (req, res) => {
 
   // define function glob scop variable for using block scop
   let result: any;
-  if (role == AUTH_RULES.EMPLOYEER) {
-    result = await db.query.employeeProfiles.findFirst({
+  if (role == AUTH_RULES.SEEKER) {
+    result = await db.query.jobSeekerProfiles.findFirst({
       where: (profiles, { eq }) => eq(profiles.userId, Number(userId!)),
     });
-  } else {
-    result = await db.query.jobSeekerProfiles.findFirst({
+  } else if (role == AUTH_RULES.EMPLOYEER) {
+    result = await db.query.employeeProfiles.findFirst({
       where: (profiles, { eq }) => eq(profiles.userId, Number(userId!)),
     });
   }
@@ -63,11 +64,10 @@ const GET_AUTHENTICATE_USER: RequestHandler = handleAsync(async (req, res) => {
   });
 });
 
-// handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
+// Creating job seeker prfile based on loggin info
 const CREATE_JOB_SEEKER_PROFILE_BY_LOGGED_IN_USER: RequestHandler = handleAsync(
   async (req, res) => {
     const userId = Number(req.user.userId);
-
     const { gender, resumeUrl, portfolioUrl } = req.body.data;
 
     const result = await db.insert(jobSeekerProfiles).values({
@@ -81,22 +81,26 @@ const CREATE_JOB_SEEKER_PROFILE_BY_LOGGED_IN_USER: RequestHandler = handleAsync(
     formatedResponse(res, {
       statusCode: HttpStatus.OK,
       data: result,
-      message: "authenticate user details retrived!",
+      message: "created job seeker profile!",
     });
   },
 );
-// handleAsync() utils function. This funciton handles dynamicly try().catch() blocks
+
+// creating employee profile by login user info
 const CREATE_EMPLOYEE_PROFILE_BY_LOGGED_IN_USER: RequestHandler = handleAsync(
   async (req, res) => {
     const userId = Number(req.user.userId);
+    const { address, experience, education, contactNumber, socialLink } =
+      req.body.data;
 
-    // const result = await db.insert(jobSeekerProfiles).values({
-    //   userId,
-    //   gender: req.body.gender,
-    //   linkedinUrl: req.body.linedinUrl,
-    //   portfolioUrl: req.body.portfolioUrl,
-    //   resumeUrl: req.body.resumeUrl,
-    // });
+    const result = await db.insert(employeeProfiles).values({
+      userId,
+      address,
+      experience,
+      education,
+      contactNumber,
+      socialLink,
+    });
 
     // sending response with utils function name of 'formattedResponse()'
     formatedResponse(res, {
